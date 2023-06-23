@@ -1,0 +1,58 @@
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.junit.Test;
+
+
+
+public class MarvelTestCase2 {
+
+WebDriver driver;
+// caso de prueba 3
+@test
+public void setUp() {
+    // Establecer la ruta del ejecutable de chromedriver
+    System.setProperty("webdriver.chrome.driver", "C:\\chromedriver.exe");
+    // Crear una nueva instancia de ChromeDriver
+    driver = new ChromeDriver();
+    // Navegar a la página de desarrolladores de Marvel
+    driver.get("https://developer.marvel.com/");
+}
+
+@Test
+public void testDocumentation() {
+    // Localizar el botón de documentación y hacer clic en él
+    WebElement documentationButton = driver.findElement(By.xpath("//a[@class='btn btn-secondary']"));
+    documentationButton.click();
+    // Verificar que se muestra la página de documentación
+    String expectedUrl = "https://developer.marvel.com/docs";
+    String actualUrl = driver.getCurrentUrl();
+    Assert.assertEquals(actualUrl, expectedUrl);
+}
+
+@Test
+public void testSearch() {
+    // Localizar el campo de búsqueda y escribir "Iron Man"
+    WebElement searchField = driver.findElement(By.id("search"));
+    searchField.sendKeys("Iron Man");
+        WebElement searchButton = driver.findElement(By.xpath("//button[@class='btn btn-primary']"));
+    searchButton.click();
+    // Verificar que se muestra el resultado de la búsqueda
+    String expectedText = "Iron Man";
+    WebElement resultText = driver.findElement(By.xpath("//h1[@class='text-center']"));
+    String actualText = resultText.getText();
+    Assert.assertEquals(actualText, expectedText);
+}
+
+@AfterTest
+public void tearDown() {
+    // Cerrar el navegador
+    driver.quit();
+}
+}
+}

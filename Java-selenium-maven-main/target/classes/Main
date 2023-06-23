@@ -1,0 +1,58 @@
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.junit.Test;
+
+
+public class Main {
+
+    public class TestCases {
+
+    
+        WebDriver driver;
+        // caso de prueba 1 login correcto
+        @Test
+        public void succeslogin1() {
+            System.setProperty("webdriver.chrome.driver",
+                    "prueba omni/Java-selenium-maven-main/Java-selenium-maven-main/drivers/chromedriver");
+            WebDriver driver = new ChromeDriver();
+            driver.get("https://developer.marvel.com/");
+        }
+        
+        public void succeslogin1o(){
+            
+            driver.manage().window().setSize(new Dimension(1040, 736));
+            driver.findElement(By.cssSelector(".user-menu-tab:nth-child(1)")).click();
+            driver.switchTo().frame(1);
+            driver.findElement(By.id("InputIdentityFlowValue")).click();
+            driver.findElement(By.id("InputIdentityFlowValue")).sendKeys("OSCLORD.1@GMAIL.COM");
+            driver.findElement(By.id("BtnSubmit")).click();
+            driver.findElement(By.id("InputPassword")).click();
+            driver.findElement(By.id("InputPassword")).sendKeys("MARVEL2023*");
+            driver.findElement(By.id("BtnSubmit")).click();
+            driver.switchTo().defaultContent();
+            {
+                WebElement element = driver.findElement(By.id("mvl-flyout-button-0"));
+                Actions builder = new Actions(driver);
+                builder.moveToElement(element).perform();
+            }
+            @Test
+            public void tearDown(){
+            driver.quit();
+            }
+        }
+    public static void main(String[] args) {
+        // Press ⌥⏎ with your caret at the highlighted text to see how
+        // IntelliJ IDEA suggests fixing it.
+        System.out.printf("Hello and welcome!");
+
+
+            System.out.println("  "+);
+        
+    }
+}

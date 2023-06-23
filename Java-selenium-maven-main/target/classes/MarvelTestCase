@@ -1,0 +1,45 @@
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.junit.Test;
+
+
+
+public class MarvelTestCase {
+
+    WebDriver driver;
+// caso de prueba 2
+    @test
+    public void setUp() {
+        System.setProperty("webdriver.chrome.driver",
+        "prueba omni/Java-selenium-maven-main/Java-selenium-maven-main/drivers/chromedriver");
+        driver = new ChromeDriver();
+        driver.get("https://developer.marvel.com/");
+    }
+
+    @Test
+    public void testTitle() {
+        String expectedTitle = "Marvel Developer Portal";
+        String actualTitle = driver.getTitle();
+        Assert.assertEquals(actualTitle, expectedTitle);
+    }
+
+    
+    public void testSignUp() {
+        WebElement signUpButton = driver.findElement(By.xpath("//a[@class='btn btn-primary']"));
+        signUpButton.click();
+        String expectedUrl = "https://developer.marvel.com/signup";
+        String actualUrl = driver.getCurrentUrl();
+        Assert.assertEquals(actualUrl, expectedUrl);
+    }
+
+    public void tearDown() {
+        driver.quit();
+    }
+}
+
